@@ -70,7 +70,7 @@ Una nota sul linguaggio utilizzato:
 * Imposta valori di default, validazioni di presenza o unicità nei modelli anche a livello di migrazione DB.
 * Mantieni `db/schema.rb` sotto version control.
 * Non fare riferimento a modelli `ActiveRecord` a livello di migrazione.
-* Nelle nelle viste mailer usa named routes con suffissi `_url`. In tutti gli altri casi, usa il suffisso `_path`. [→][bp-redirects]
+* Nelle viste mailer usa named routes con suffissi `_url`. In tutti gli altri casi, usa il suffisso `_path`. [→][bp-redirects]
 * Evita di instanziare più di un oggetto per azione nei controller.
 * Sfrutta solo una variabile di istanza per vista.
 * Assicurati che le migrazioni down funzionino. [→][bp-down-migrations]
