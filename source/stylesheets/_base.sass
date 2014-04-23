@@ -1,0 +1,52 @@
+html
+  +rem-html-reset(0.9)
+
+  +media($tablet)
+    +rem-html-reset(1)
+
+body
+  +body-font
+  +font-size(0)
+  line-height: 1.5
+  color: $c-base-body
+  background-color: $c-white
+
+ul, ol
+  padding-left: 0
+  margin: 0
+
+li
+  list-style-type: none
+
+h1, h2, h3, h4, h5, h6, hgroup,
+ul, ol, dd, p, figure, pre, table,
+fieldset, hr, form
+  margin: 0
+
+h1, h2, h3, h4, h5, h6
+  font-size: inherit
+  font-family: inherit
+  font-weight: inherit
+
+form
+  label
+    display: block
+    line-height: 3em
+
+  li
+    +margin-bottom(1)
+
+  #{$all-text-inputs}, textarea
+    display: block
+    +box-sizing(border-box)
+    width: 100%
+    padding: 10px
+    border: 1px solid #ccc
+    outline: 0
+
+  #{$all-text-inputs-hover}, textarea:hover
+    border-color: #8c8c8c
+
+  #{$all-text-inputs-focus}, textarea:focus
+    border-color: #FF66AA
+

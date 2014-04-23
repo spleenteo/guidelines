@@ -1,0 +1,44 @@
+@mixin row($gutter: true)
+  +clearfix
+  @if $gutter
+    margin-left: - ($grid-gutter / 2)
+    margin-right: - ($grid-gutter / 2)
+
+@mixin column($size, $gutter: true)
+  +box-sizing(border-box)
+  float: left
+  width: percentage($size / 12)
+  @if $gutter
+    margin-left: 0
+    margin-right: 0
+    padding-left: ($grid-gutter / 2)
+    padding-right: ($grid-gutter / 2)
+
+@mixin expand
+  float: none
+  width: auto
+  padding-right: 0
+  padding-left: 0
+  margin-left: 0
+  margin-right: 0
+
+@mixin table-row($gutter: true)
+  display: table
+  table-layout: fixed
+  width: 100%
+
+@mixin table-column($size, $gutter: true)
+  display: table-cell
+  vertical-align: top
+  width: percentage($size / 12)
+
+  @if $gutter
+    border-left: ($grid-gutter / 2) solid transparent
+    border-right: ($grid-gutter / 2) solid transparent
+
+    &:last-child
+      border-right: 0
+
+    &:first-child
+      border-left: 0
+

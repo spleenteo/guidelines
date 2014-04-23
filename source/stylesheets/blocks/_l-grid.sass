@@ -1,0 +1,24 @@
+.l-grid
+  +row
+
+  @for $i from 1 to 12
+    .l-grid__column
+      +column(12)
+      +margin-bottom(1)
+
+      &.small-#{$i}
+        margin-bottom: 0
+        +column($i)
+
+  @for $i from 1 to 12
+    .l-grid__column.medium-#{$i}
+      +media($tablet)
+        margin-bottom: 0
+        +column($i)
+
+  @for $i from 1 to 12
+    .l-grid__column.large-#{$i}
+      +media($desktop)
+        margin-bottom: 0
+        +column($i)
+

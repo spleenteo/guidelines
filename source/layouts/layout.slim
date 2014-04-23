@@ -1,0 +1,38 @@
+doctype 5
+html
+  head
+    title = current_page.data.title || "Cantiere Creativo Guidelines"
+    meta charset="utf-8"
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag  "all"
+
+  body
+    header.header
+      h1.header__title
+       | Cantiere Creativo Guidelines
+       a.header__link href="http://www.cantierecreativo.net" website
+
+
+    aside
+      nav
+        h5 Metodologia
+        ul
+          li = link_to "Processo", "/chapters/clienti"
+          li = link_to "Clienti", "/chapters/clienti"
+          li = link_to "Team Planning", "/chapters/clienti"
+        h5 Coding
+        ul
+          li = link_to "Protocollo", "/chapters/clienti"
+          li = link_to "Code", "/chapters/clienti"
+          li = link_to "Frontend", "/chapters/clienti"
+          li = link_to "Design", "/chapters/clienti"
+        h5 Sharing
+        ul
+          li = link_to "Blog", "/chapters/clienti"
+          li = link_to "Ricerca", "/chapters/clienti"
+          li = link_to "Hackathons", "/chapters/clienti"
+
+    article
+      = yield

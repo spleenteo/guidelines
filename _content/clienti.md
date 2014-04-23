@@ -4,10 +4,10 @@
 
 * Continuativi nel tempo (+3 mesi)
 * Che richiedano impegno full-time di almeno una persona
-* Multi-settoriali (che possano coinvolgere più professionalità interne a Cantiere)
-* Con checkpoint di pagamento frequenti (ogni 2 settimane)
-* Senza la presenza di intermediari
-* In cui è possibile lavorare con metodologie agili
+* Multi-settoriali (che possano coinvolgere piu' professionalità interne a Cantiere)
+* Con checkpoint di pagamento frequenti
+* Assenza di intermediari
+* Predisposti a lavorare con metodologie agili
 
 ## Requisiti sullo stakeholder
 
@@ -19,7 +19,7 @@
 
 * "Con circa X euro siamo in grado di realizzare *il core* della tua idea"
 * Massima flessibilità nel poter cambiare idea in corso d'opera
-* *Exit strategy*
+* Exit strategy e assenzza di **lock in**
 * Prodotto finale di qualità
 * Team motivato e in focus
 * Presenza di retrospettive "checkpoint" durante lo sviluppo per monitorare non solo l'andamento dello sprint, ma il raggiungimento dell'obiettivo entro il budget

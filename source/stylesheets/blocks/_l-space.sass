@@ -1,0 +1,26 @@
+$l-space-max-space: 5
+
+@for $i from 1 to $l-space-max-space
+  .l-space--margin-bottom-#{$i}
+    +margin-bottom($i)
+
+@for $i from 1 to $l-space-max-space
+  .l-space--margin-top-#{$i}
+    +margin-top($i)
+
+@for $i from 1 to $l-space-max-space
+  .l-space--vertical-margin-#{$i}
+    +vertical-margin($i)
+
+@for $i from 1 to $l-space-max-space
+  .l-space--padding-bottom-#{$i}
+    +padding-bottom($i)
+
+@for $i from 1 to $l-space-max-space
+  .l-space--padding-top-#{$i}
+    +padding-top($i)
+
+@for $i from 1 to $l-space-max-space
+  .l-space--vertical-padding-#{$i}
+    +vertical-padding($i)
+

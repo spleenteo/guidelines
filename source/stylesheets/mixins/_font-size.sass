@@ -1,0 +1,19 @@
+= responsive-font-size($value)
+  +rem-rule(font-size, $value)
+
+= font-size($unit)
+  @if $unit == -1
+    +responsive-font-size(14px)
+  @if $unit == 0
+    +responsive-font-size(17px)
+  @if $unit == 1
+    +responsive-font-size(19px)
+  @if $unit == 2
+    +responsive-font-size(22px)
+  @if $unit == 3
+    +responsive-font-size(25px)
+  @if $unit == 4
+    +responsive-font-size(35px)
+  @if $unit == hero
+    +responsive-font-size(45px)
+
