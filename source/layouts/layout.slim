@@ -1,18 +1,21 @@
 doctype 5
 html
   head
-    title = current_page.data.title || "Cantiere Creativo Guidelines"
+    title = "#{current_page.data.title} — Guidelines Cantiere Creativo" || "Cantiere Creativo Guidelines"
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
 
     = stylesheet_link_tag "application"
-    = javascript_include_tag  "all"
 
   body
     section.aside
       header.aside__header
-        h1.header__title Cantiere Creativo Guidelines
+        h1.header__title Guidelines<br>Cantiere Creativo
       nav.chapters
+        h5.chapters__title Intro
+        ul.chapters__content
+          li = link_to "Home", "/"
+          li = link_to "Modello contratto", "/documenti/contratto-cantiere-creativo-marzo-13.pdf"
         h5.chapters__title Metodologia
         ul.chapters__content
           li = link_to "Processo", "/chapters/processo"
