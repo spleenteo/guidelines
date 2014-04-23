@@ -1,0 +1,146 @@
+<!DOCTYPE html><html><head><title>come iniziare un nuovo lavoro — Guidelines Cantiere Creativo</title><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><link href="../../stylesheets/application.css" rel="stylesheet" type="text/css" /></head><body><section class="aside"><header class="aside__header"><h1 class="header__title">Guidelines<br>Cantiere Creativo</h1></header><nav class="chapters"><h5 class="chapters__title">Intro</h5><ul class="chapters__content"><li><a href="/">Home</a></li><li><a href="../../documenti/contratto-cantiere-creativo-marzo-13.pdf">Modello contratto</a></li></ul><h5 class="chapters__title">Metodologia</h5><ul class="chapters__content"><li><a href="../chapters/processo">Processo</a></li><li><a href="../chapters/clienti">Clienti</a></li><li><a href="../chapters/team-planning">Team Planning</a></li></ul><h5 class="chapters__title">Coding</h5><ul class="chapters__content"><li><a href="../chapters/protocollo">Protocollo</a></li><li><a href="../chapters/code">Code</a></li><li><a href="../chapters/frontend">Frontend</a></li><li><a href="../chapters/design">Design</a></li></ul><h5 class="chapters__title">Sharing</h5><ul class="chapters__content"><li><a href="../chapters/blog">Blog</a></li><li><a href="../chapters/twitter">Twitter</a></li></ul><h5 class="chapters__title">Formazione</h5><ul class="chapters__content"><li><a href="../chapters/ricerca">Ricerca</a></li><li><a href="../chapters/hackathons">Hackathons</a></li></ul></nav><footer class="aside__footer"><ul><li><a class="aside__footer__link" href="http://www.cantierecreativo.net">Cantiere Creativo</a></li><li><a class="aside__footer__link" href="http://www.leanpanda.com">LeanPanda</a></li></ul></footer></section><section class="l-content"><article class="formatted-content"><h1>Protocollo</h1>
+
+<h2>Creazione di un nuovo progetto Rails</h2>
+
+<p>Installa Suspenders.</p>
+<pre class="highlight plaintext">gem install suspenders
+</pre>
+
+<p>Crea l&#39;app</p>
+<pre class="highlight plaintext">suspenders new-project
+</pre>
+
+<h2>Set up di un progetto Rails</h2>
+
+<p>Ottieni il codice:</p>
+<pre class="highlight plaintext">git clone git@github.com:organization/project.git
+</pre>
+
+<p>Prepara le dipendenze dell&#39;app.</p>
+<pre class="highlight plaintext">cd project
+./bin/setup
+</pre>
+
+<p>Usa il plugin <a href="https://github.com/ddollar/heroku-config">Heroku config</a> per copiare le variabili d&#39;environment:</p>
+<pre class="highlight plaintext">heroku config:pull --remote staging
+</pre>
+
+<p>Elimina le righe in <code>.env</code> superflue (es. <code>S3_SECRET</code>)</p>
+
+<p>Utilizza <a href="https://github.com/ddollar/foreman">Foreman</a> per lanciare l&#39;applicazione:</p>
+<pre class="highlight plaintext">foreman start
+</pre>
+
+<h2>Mantenimento di un progetto Rails</h2>
+
+<ul>
+<li>Evita di includere in version control file specifici della propria macchina o della propria modalità di sviluppo.</li>
+<li>Non includere in version control file contenenti segreti o chiavi private.</li>
+</ul>
+
+<h2>Lavora su una nuova feature</h2>
+
+<p>Crea una nuovo branch locale per la feature, forkando da master, e aggiungendo le tue iniziali come prefisso del branch.</p>
+<pre class="highlight plaintext">git checkout master
+git pull
+git checkout -b &lt;branch-name&gt;
+</pre>
+
+<p>Effettua spesso rebase dal master per includere eventuali modifiche provenienti da remoto.</p>
+<pre class="highlight plaintext">git fetch origin
+git rebase origin/master
+</pre>
+
+<p>Risolvi eventuali conflitti, e prosegui col rebase.</p>
+<pre class="highlight plaintext"># edit conflicted files on editor
+git add -all
+git rebase --continue
+</pre>
+
+<p>Quando una feature è completa ed i test passano, effettua un commit.</p>
+<pre class="highlight plaintext">rake
+git add --all
+git status
+git commit --verbose
+</pre>
+
+<p>Scrivi un <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">buon messaggio di commit</a>.</p>
+<pre class="highlight plaintext">Present-tense summary under 50 characters
+
+* More information about commit (under 72 characters).
+* More information about commit (under 72 characters).
+
+http://project.management-system.com/ticket/123
+</pre>
+
+<p>Pusha il tuo branch.</p>
+<pre class="highlight plaintext">git push origin &lt;branch-name&gt;
+</pre>
+
+<p>Procedi con l&#39;effettuare una pull request. Richiedi un code review sulla stanza di development su <a href="https://www.hipchat.com">Hipchat</a>.</p>
+
+<h2>Effettua un code review</h2>
+
+<p>Un membro del team diverso dall&#39;autore della feature effettua la review del codice, seguendo le linee guida per evitare incomprensioni.</p>
+
+<p>Il reviewer quando possibile commenta e chiede chiarimenti direttamente all&#39;interno dell&#39;interfaccia web di Gitlab/Github/Bitbucket.</p>
+
+<p>Il reviewer può effettuare piccoli cambiamenti al codice in prima persona, effettuando un checkout del branch.</p>
+<pre class="highlight plaintext">git checkout &lt;branch-name&gt;
+rake db:migrate db:test:prepare
+rake
+git diff staging/master..HEAD
+</pre>
+
+<p>Una volta testata la modifica su browser e lanciati i test, può committare e pushare la modifica sul branch remoto.</p>
+
+<p>Quando il reviewer è soddisfatto del risultato finale e la piattaforma di continuous integration non notifica errori, commenta sulla pull request <code>Ready to merge.</code></p>
+
+<h2>Merge di una feature</h2>
+
+<p>Procedi con un rebase interattivo. Effettua lo squash di commit minori o temporanei (es. &quot;Fix whitespace&quot;) su pochi commit significativi con tutti i  test verdi. Modifica il messaggio di commit dove non chiari o espliciti. Assicurati che ogni commit finale passi i test.</p>
+<pre class="highlight plaintext">git checkout &lt;branch-name&gt;
+git fetch origin
+git rebase -i origin/master
+rake
+</pre>
+
+<p>Ricontrolla la lista di commit definitiva. Controlla i file modificati. A questo punto mergia il branch su master, senza merge bubbles.</p>
+<pre class="highlight plaintext">git log origin/master..&lt;branch-name&gt;
+git diff --stat origin/master
+git checkout master
+git merge &lt;branch-name&gt; --ff-only
+git push
+</pre>
+
+<p>Rimuovi il feature branch da remoto e da locale.</p>
+<pre class="highlight plaintext">git push origin --delete &lt;branch-name&gt;
+git branch --delete &lt;branch-name&gt;
+</pre>
+
+<h2>Deploy di una feature</h2>
+
+<p>Controlla la lista di nuovi commit. Controlla i file modificati. A questo punto pusha sul branch staging, deployando.</p>
+<pre class="highlight plaintext">git fetch staging
+git log staging/master..master
+git diff --stat staging/master
+git push staging
+</pre>
+
+<p>Se necessario, lancia le nuove migrazioni and restarta i dynos.</p>
+<pre class="highlight plaintext">heroku run rake db:migrate --remote staging
+heroku restart --remote staging
+</pre>
+
+<p>Testa la nuova feature su browser e deploya in produzione, seguendo il medesimo iter.</p>
+<pre class="highlight plaintext">git fetch production
+git log production/master..master
+git diff --stat production/master
+git push production
+heroku run rake db:migrate --remote production
+heroku restart --remote production
+watch heroku ps --remote production
+</pre>
+
+<p>Chiudi la pull request and commenta <code>Merged.</code></p>
+</article></section></body></html>

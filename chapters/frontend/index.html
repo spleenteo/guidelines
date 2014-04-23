@@ -1,0 +1,239 @@
+<!DOCTYPE html><html><head><title>Sviluppo best practices per l'utilizzo di bem, sass e assets — Guidelines Cantiere Creativo</title><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><link href="../../stylesheets/application.css" rel="stylesheet" type="text/css" /></head><body><section class="aside"><header class="aside__header"><h1 class="header__title">Guidelines<br>Cantiere Creativo</h1></header><nav class="chapters"><h5 class="chapters__title">Intro</h5><ul class="chapters__content"><li><a href="/">Home</a></li><li><a href="../../documenti/contratto-cantiere-creativo-marzo-13.pdf">Modello contratto</a></li></ul><h5 class="chapters__title">Metodologia</h5><ul class="chapters__content"><li><a href="../chapters/processo">Processo</a></li><li><a href="../chapters/clienti">Clienti</a></li><li><a href="../chapters/team-planning">Team Planning</a></li></ul><h5 class="chapters__title">Coding</h5><ul class="chapters__content"><li><a href="../chapters/protocollo">Protocollo</a></li><li><a href="../chapters/code">Code</a></li><li><a href="../chapters/frontend">Frontend</a></li><li><a href="../chapters/design">Design</a></li></ul><h5 class="chapters__title">Sharing</h5><ul class="chapters__content"><li><a href="../chapters/blog">Blog</a></li><li><a href="../chapters/twitter">Twitter</a></li></ul><h5 class="chapters__title">Formazione</h5><ul class="chapters__content"><li><a href="../chapters/ricerca">Ricerca</a></li><li><a href="../chapters/hackathons">Hackathons</a></li></ul></nav><footer class="aside__footer"><ul><li><a class="aside__footer__link" href="http://www.cantierecreativo.net">Cantiere Creativo</a></li><li><a class="aside__footer__link" href="http://www.leanpanda.com">LeanPanda</a></li></ul></footer></section><section class="l-content"><article class="formatted-content"><h1>Sviluppo frontend</h1>
+
+<p>Definire convenzioni ed un lessico condiviso per operazioni e pattern d&#39;uso comune nello sviluppo frontend è fondamentale per facilitare uno scambio di idee più fluido tra sviluppatori, semplificando l&#39;introduzione di nuovi sviluppatori e/o passaggi di consegne.</p>
+
+<p>La struttura consigliata per un nuovo progetto Sass in partenza è la seguente:</p>
+<pre class="highlight plaintext">app/assets/stylesheets/
+├── blocks
+│   ├── _block-name.css.sass
+│   └── ...
+├── formatting
+│   ├── _formatting-category.css.sass
+│   └── ...
+├── mixins
+│   ├── _mixin-name.css.sass
+│   └── ...
+├── variables
+│   ├── _variables-category.css.sass
+│   └── ...
+├── _base.css.sass
+├── _shame.css.sass
+└── application.css.sass
+</pre>
+
+<h2>Rootfile</h2>
+
+<p>Il Rootfile, <code>application.css.sass</code>, si occupa esclusivamente di includere ordinatamente i partial:</p>
+<pre class="highlight plaintext">@import "variables/**/*"
+@import "mixins/**/*"
+
+@import "base"
+@import "formatting/**/*"
+@import "blocks/**/*"
+@import "shame"
+</pre>
+
+<p>Per facilitare il mantenimento del file, nel caso di progetto Rails 3.1+, è possibile sfruttare <a href="https://github.com/rails/sass-rails#glob-imports">il file globbing nella direttiva <code>@import</code></a>.</p>
+
+<h2>Shamefile</h2>
+
+<p>Inserisci quick-fix, hack o tecniche &quot;discutibili&quot; solo all&#39;interno del file <code>_shame.css.sass</code> con l&#39;obiettivo di:</p>
+
+<ul>
+<li>Renderli più semplici da identificare, isolare e risolvere in un secondo momento</li>
+<li>Mantenere il codebase &quot;principale&quot; pulito</li>
+<li>Rendere esplicito lo stato di salute dei fogli di stile</li>
+</ul>
+
+<p>Documenta gli hack presenti nel file, specificando:</p>
+
+<ul>
+<li>A quale parte del codebase appartiene</li>
+<li>Perchè è stato necessario inserirlo</li>
+<li>Come si potrebbe fixare, se ci fosse più tempo</li>
+</ul>
+
+<h2>Basefile</h2>
+
+<p>Il partial <code>_base.css.sass</code> contiene gli stili di default applicati ad ogni pagina. Tipicamente contiene una direttiva <code>@import</code> che include un <a href="http://necolas.github.io/normalize.css/">CSS reset</a> e soli <em>tag selectors</em>.</p>
+
+<p>E&#39; importante fare in modo di aggiornare nel tempo il Basefile, con l&#39;obiettivo di ridurre al minimo l&#39;override in cascata all&#39;interno di blocchi e stili di formattazione.</p>
+
+<h2>Selettori di formattazione</h2>
+
+<p>Sono <code>class selectors</code> utili ad evitare la creazione di blocchi specifici  per pagine che — magari dopo il riutilizzo di blocchi già esistenti nel codebase — richiederebbero ancora minime modifiche alla formattazione del testo (allineamento, padding, dimensione font, etc).</p>
+
+<p>Ogni selettore di formattazione contiene tipicamente una sola regola. Per facilitare l&#39;identificazione di selettori di formattazione all&#39;interno dell&#39;HTML, i nomi delle classi vengono prefissate con <code>f-</code>:</p>
+<pre class="highlight plaintext">.f-right-aligned
+  text-align: right
+</pre>
+
+<p>Sebbene si riconosce a queste regole un utilizzo pratico indiscutibile, è fondamentale mantenerle in numero ridotto, per evitare <em>classitis</em> nell&#39;HTML.</p>
+
+<p>A fini esemplificativi, la tecnica <em><a href="http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/">double-stranded heading hierarchy</a></em> può essere implementata con selettori di formattazione:</p>
+<pre class="highlight plaintext">.f-size-alpha
+  font-size: 30px
+
+.f-size-beta
+  font-size: 26px
+
+.f-size-gamma
+  font-size: 23px
+
+...
+</pre>
+
+<h2>BEM (Block-Element-Modifier)</h2>
+
+<p>Il BEM è una <a href="http://bem.info/">convenzione di naming codificata da Yandex</a> che ha come obiettivo principale quello di garantire una maggiore trasparenza e chiarezza di intenti.</p>
+
+<p>Ad esclusione delle poche regole specificate nei fogli di stile già descritti, la stragrande maggioranza del codebase segue una notazione BEM, e risiede all&#39;interno della directory <code>blocks</code>.</p>
+
+<p>La convenzione BEM è la seguente:</p>
+<pre class="highlight plaintext">.block
+.block__element
+.block--modifier
+</pre>
+
+<p>Dove:</p>
+
+<ul>
+<li><code>.block</code> rappresenta un nuovo componente/astrazione. Ogni blocco viene specificato in un partial Sass omonimo (es. <code>blocks/_block.css.sass</code>).</li>
+<li><code>.block__element</code> rappresenta un elemento figlio di <code>.block</code>, che aiuta a definirlo nel suo complesso.</li>
+<li><code>.block--modifier</code> rappresenta una differente versione di <code>.block</code> (in termini OOP, una sottoclasse).</li>
+</ul>
+
+<p>Dato che i nomi delle classi dei sotto-elementi di un blocco sono prefissati univocamente dal nome del blocco stesso:</p>
+
+<ul>
+<li>in qualsiasi momento è possibile analizzare l&#39;HTML e capire a quale blocco appartiene un dato elemento;</li>
+<li>si elimina completamente name-clashing involontario tra sotto-elementi di componenti differenti;</li>
+<li>a livello Sass/CSS non è necessario utilizzare <em>descendant selectors</em> o <em>parent selectors</em> (es. <code>.block .element</code> o <code>.block &gt; .element</code>), ottenendo quindi come side-effect positivo fogli di stile più performanti;</li>
+</ul>
+
+<p>Ogni blocco ha il compito di specificare il layout dei propri sotto elementi, ed è possibile inserire blocchi all&#39;interno di altri blocchi (nesting).</p>
+
+<h3>Stati</h3>
+
+<p>A differenza dei <em>block-modifiers</em>, gli stati rappresentano cambiamenti di stato dinamici/programmatici all&#39;interno del layout della pagina (es. Javascript).</p>
+
+<p>Per facilitarne l&#39;identificazione a livello HTML, i nomi degli stati vengono prefissati con <code>is-</code>:</p>
+<pre class="highlight plaintext">.is-active
+.is-collapsed
+.is-hidden
+</pre>
+
+<p>E&#39; possibile introdurre stati sia a livello di blocco, che di sotto-elemento di blocco.</p>
+
+<h3>Layout-blocks</h3>
+
+<p>Per favorire il riutilizzo di blocchi già esistenti nel codebase, particolare attenzione dev&#39;essere posta nel <strong>non specificare</strong> dimensioni esplicite, margini o posizionamenti relativi a livello root del blocco: ogni blocco deve simulare il comportamento di default di un tag <code>div</code>, dunque essere in <code>position: static</code> ed espandersi a coprire il 100% della larghezza dell&#39;elemento padre, senza margini.</p>
+
+<p>Per ovviare alla necessità di spaziare tra di loro i differenti blocchi presenti all&#39;interno di una pagina, è possibile ricorrere al nesting di blocchi; un blocco il cui scopo è unicamente quello di posizionare spazialmente i sotto-blocchi che contiene prende il nome di <em>layout block</em>. Esempi tipici di layout blocks si hanno in blocchi che organizzano i propri sotto-elementi in griglie o in colonne main-content/sidebar.</p>
+
+<p>Per facilitare l&#39;identificazione di layout blocks all&#39;interno dell&#39;HTML, i nomi vengono prefissati con <code>l-</code>:</p>
+<pre class="highlight plaintext">.l-grid
+.l-two-cols
+.l-spacing
+</pre>
+
+<h3>Ma il BEM esteticamente è brutto!</h3>
+
+<p>Ad oggi sfortunatamente il CSS non ci consente molta scelta in termini di caratteri non alfanumerici da poter utilizzare all&#39;interno delle classi come &quot;delimitatori&quot;.
+La ragione dei doppi trattini ed underscores sta nella possibilità di poter continuare ad utilizzare lo <em>spinal-case</em> classico per dare un nome a blocchi, elementi e modificatori:</p>
+<pre class="highlight plaintext">.site-search
+.site-search__sub-element
+</pre>
+
+<p>In definitiva sì, la notazione BEM è più verbosa e al primo sguardo può sembrare &quot;strana&quot;, ma i vantaggi in termini di chiarezza ed espressività del codice risultante superano di molto possibili critiche sull&#39;aspetto estetico.</p>
+
+<h3>Quando termina un blocco e comincia un nuovo sotto-blocco?</h3>
+
+<p>La scelta è soggettiva e dipendente dal contesto. L&#39;obiettivo è il maggior riutilizzo possibile di codice e regole già presenti nel codebase, evitando over-engineering e flessibilità non necessaria.</p>
+
+<p>Un flusso di lavoro ottimale è separare un sotto-elemento da un blocco, trasformandolo in blocco a se&#39; stante, solo quando un nuovo caso concreto lo rende effettivamente necessario.</p>
+
+<h3>Quando utilizzare <em>child+tag selectors</em> all&#39;interno di blocchi</h3>
+
+<p>Supponiamo di voler realizzare un <em>layout block</em> che permetta di rendere floattanti i suoi sotto-blocchi:</p>
+<pre class="highlight plaintext">&lt;ul class="l-floating"&gt;
+  &lt;li class="l-floating__item"&gt;...&lt;/li&gt;
+  &lt;li class="l-floating__item"&gt;...&lt;/li&gt;
+&lt;ul&gt;
+</pre>
+
+<p>La convenzione BEM ci costringe a dover aggiungere una classe esplicita (<code>.l-floating__item</code>) ad ogni sotto-elemento. Confrontiamo questa scelta con un possibile selettore non-BEM:</p>
+<pre class="highlight plaintext">.l-floating &gt; li
+</pre>
+
+<p>Sebbene meno verboso a livello di HTML che richiede, il secondo selettore non permette di intuire istantaneamente per ogni <code>&lt;li&gt;</code> il blocco che ha la responsabilità di stilizzarlo:</p>
+<pre class="highlight plaintext">&lt;section class="another-block"&gt;
+  ...
+  &lt;ul class="l-floating"&gt;
+    &lt;li&gt;...&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+  &lt;ul&gt;
+  ...
+&lt;/section&gt;
+</pre>
+
+<p>Rende inoltre meno riutilizzabile lo stile, non consentendone la sua applicazione ad esempio in caso di cambio di tag dettato da motivi non prettamente estetici (semantica, SEO, accessibilità, etc):</p>
+<pre class="highlight plaintext">&lt;div class="l-floating"&gt;
+  &lt;div&gt;...&lt;/div&gt;
+  &lt;div&gt;...&lt;/div&gt;
+&lt;ul&gt;
+</pre>
+
+<p>Presupposto del BEM è un <em>separation of concerns</em> netto tra estetica e semantica in grado di garantire il massimo riutilizzo di blocchi già presenti, senza richiedere modifiche a codice già presente nel codebase.</p>
+
+<p>Si sconsiglia dunque l&#39;uso di <em>child+tag selectors</em> all&#39;interno di blocchi quando non si può escludere un cambiamento di tag nel futuro (es. heading tags).</p>
+
+<p>E&#39; vietato invece l&#39;utilizzo di <em>descendant selectors</em>, in quanto troppo generici e suscettibili a <em>carpet-bombing</em>.</p>
+
+<h3>Block modifiers ed @extend</h3>
+
+<p>In alternativa allo stile BEM classico di applicazione di <em>block-modifiers</em>:</p>
+<pre class="highlight plaintext">&lt;div class="block block--modifier"&gt;
+&lt;/div&gt;
+</pre>
+
+<p>E&#39; possibile sfruttare la direttiva Sass <code>@extend</code>:</p>
+<pre class="highlight plaintext">.block--modifier
+  @extend .block
+  ...
+</pre>
+
+<p>Riducendo il <em>classitis</em> HTML:</p>
+<pre class="highlight plaintext">&lt;div class="block--modifier"&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Best practices CSS</h2>
+
+<ul>
+<li>Definisci tutte le classi CSS in <code>spinal-case</code>. <a href="http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
+<li>Definisci i colori con sintassi esadecimale (<code>#fff</code>) ed <code>rbga()</code></li>
+<li>Limita l&#39;utilizzo del modificatore <code>!important</code> a selettori di stato</li>
+<li>Non utilizzare <em>ID selectors</em> (<code>#header</code>)</li>
+<li>Non definire sotto-elementi di modulo con <em>selector-depth</em> superiore a 3.</li>
+<li>Evita un <em>depth of applicability</em> superiore a 3. <a href="http://smacss.com/book/applicability">→</a></li>
+<li>Sfrutta i <code>rem</code> con fallback a <code>px</code> per il font-sizing e il vertical-spacing</li>
+<li>Favorisci il riutilizzo producendo una <em>pattern library</em> HTML che mostri i diversi moduli e layout esistenti, ed un loro utilizzo pratico. <a href="http://ux.mailchimp.com/patterns">→</a></li>
+</ul>
+
+<h2>Best practices Sass</h2>
+
+<ul>
+<li>Usa Sass, non Scss</li>
+<li>Prediligi Bourbon a Compass</li>
+<li>Definisci mixin e variabili in <code>spinal-case</code>. <a href="http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
+<li>Limita il numero di possibili varianti di colore, font-family, font-size, spaziatura verticale tra i blocchi e breakpoint all&#39;interno del sito, parametrizzandole all&#39;interno di appositi file di variabili (<code>_colors.css.sass</code>, <code>_font-families.css.sass</code>, etc.)</li>
+<li>Produci dei mixin che rinforzino le convenzioni in uso all&#39;interno del codebase (es. per l&#39;utilizzo dei <code>rem</code> o per applicare una tra le possibili varianti di font-size)</li>
+<li>Prefissa i nomi di variabile dei colori con <code>c-</code> e i breakpoint con <code>b-</code></li>
+<li>Definisci i colori con nomi semantici (<code>$primary-color</code> invece che <code>$red-color</code>)</li>
+<li>Quando il numero di blocchi presenti all&#39;interno del codebase aumenta, procedi splittando i blocchi in namespaces, spostandoli in sotto-directory (es. <code>blocks/blog</code>, <code>blocks/homepage</code>, etc.)</li>
+<li>Non definire mixin senza parametri (sfrutta la direttiva <code>@extend</code>)</li>
+<li>Limita il numero di sotto-elementi per ogni blocco, per facilitare il riutilizzo autonomo di parti del blocco.</li>
+<li>Specifica direttive <code>@media</code> al termine della definizione del blocco, ed evita override dei selettori: specifica fuori dalle direttive <code>@media</code> solo le regole condivise a tutti i breakpoint</li>
+</ul>
+</article></section></body></html>
