@@ -35,7 +35,7 @@
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 activate :livereload
-activate :syntax, :line_numbers => true
+activate :syntax, :line_numbers => false
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true, :smartypants => true
 activate :directory_indexes

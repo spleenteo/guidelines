@@ -9,30 +9,34 @@ html
     = javascript_include_tag  "all"
 
   body
-    header.header
-      h1.header__title
-       | Cantiere Creativo Guidelines
-       a.header__link href="http://www.cantierecreativo.net" website
-
-
-    aside
-      nav
-        h5 Metodologia
-        ul
-          li = link_to "Processo", "/chapters/clienti"
+    section.aside
+      header.aside__header
+        h1.header__title Cantiere Creativo Guidelines
+      nav.chapters
+        h5.chapters__title Metodologia
+        ul.chapters__content
+          li = link_to "Processo", "/chapters/processo"
           li = link_to "Clienti", "/chapters/clienti"
-          li = link_to "Team Planning", "/chapters/clienti"
-        h5 Coding
+          li = link_to "Team Planning", "/chapters/team-planning"
+        h5.chapters__title Coding
+        ul.chapters__content
+          li = link_to "Protocollo", "/chapters/protocollo"
+          li = link_to "Code", "/chapters/code"
+          li = link_to "Frontend", "/chapters/frontend"
+          li = link_to "Design", "/chapters/design"
+        h5.chapters__title Sharing
+        ul.chapters__content
+          li = link_to "Blog", "/chapters/blog"
+          li = link_to "Twitter", "/chapters/twitter"
+        h5.chapters__title Formazione
+        ul.chapters__content
+          li = link_to "Ricerca", "/chapters/ricerca"
+          li = link_to "Hackathons", "/chapters/hackathons"
+      footer.aside__footer
         ul
-          li = link_to "Protocollo", "/chapters/clienti"
-          li = link_to "Code", "/chapters/clienti"
-          li = link_to "Frontend", "/chapters/clienti"
-          li = link_to "Design", "/chapters/clienti"
-        h5 Sharing
-        ul
-          li = link_to "Blog", "/chapters/clienti"
-          li = link_to "Ricerca", "/chapters/clienti"
-          li = link_to "Hackathons", "/chapters/clienti"
+          li: a.aside__footer__link href="http://www.cantierecreativo.net" Cantiere Creativo
+          li: a.aside__footer__link href="http://www.leanpanda.com" LeanPanda
 
-    article
-      = yield
+    section.l-content
+      article.formatted-content
+        = yield

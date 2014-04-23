@@ -1,4 +1,6 @@
 .formatted-content
+  +serif-font
+
   h1, h2, h3, h4, h5, h6, hgroup,
   ul, ol, dd, p, figure, pre, table,
   fieldset, hr, form
@@ -6,21 +8,40 @@
 
   h2, h3, h4, h5, h6
     +margin-top(2)
-
     &:first-child
       margin-top: 0
+
+  h3, h4, h5, h6
+    font-weight: bold
+
+  h1
+    +font-size(5)
+  h2
+    +font-size(3)
+    border-bottom: 1px solid $c-base-body
+  h3
+    +font-size(2)
+  h4
+    +font-size(1)
+
+
+
 
   ul, ol
     padding-left: 30px
 
     li
-      +margin-bottom(1)
 
   ul li
     list-style-type: disc
 
   ol li
     list-style-type: decimal
+
+  blockquote
+    font-style: italic
+    background-color: $c-gray
+    +padding(2)
 
 .alpha
   +font-size(3)
