@@ -20,25 +20,25 @@
 
 <ul>
 <li>Non duplicare funzionalità già presenti in librerie di sistema.</li>
-<li>Non fallire silenziosamente <em>ingoiando</em> eccezioni. <a href="/guidelines/http://www.codinghorror.com/blog/2007/08/whats-worse-than-crashing.html">→</a></li>
-<li>Non scrivere codice cercando di predire future necessità. <a href="/guidelines/http://c2.com/cgi/wiki?DoTheSimplestThingThatCouldPossiblyWork">→</a></li>
-<li>Evita di usare eccezioni per gestire control flow ordinario. <a href="/guidelines/http://pragmatictips.com/34">→</a></li>
-<li>Mantieni il codice semplice, chiaro ed esplicito. <a href="/guidelines/http://code.mumak.net/2012/02/simple-made-easy.html">→</a></li>
-<li>Evita di ottimizzare il codice. Non farlo mai senza profiling. <a href="/guidelines/http://c2.com/cgi/wiki?ProfileBeforeOptimizing">→</a></li>
+<li>Non fallire silenziosamente <em>ingoiando</em> eccezioni. <a href="http://www.codinghorror.com/blog/2007/08/whats-worse-than-crashing.html">→</a></li>
+<li>Non scrivere codice cercando di predire future necessità. <a href="http://c2.com/cgi/wiki?DoTheSimplestThingThatCouldPossiblyWork">→</a></li>
+<li>Evita di usare eccezioni per gestire control flow ordinario. <a href="http://pragmatictips.com/34">→</a></li>
+<li>Mantieni il codice semplice, chiaro ed esplicito. <a href="http://code.mumak.net/2012/02/simple-made-easy.html">→</a></li>
+<li>Evita di ottimizzare il codice. Non farlo mai senza profiling. <a href="http://c2.com/cgi/wiki?ProfileBeforeOptimizing">→</a></li>
 </ul>
 
 <h2>Principi di object-oriented design</h2>
 
 <ul>
-<li>Evita variabili globali e singletons. <a href="/guidelines/http://stackoverflow.com/questions/484635/are-global-variables-bad">→</a></li>
-<li>Evita un numero di parametri superiore a 4. <a href="/guidelines/http://sourcemaking.com/refactoring/long-parameter-list">→</a></li>
+<li>Evita variabili globali e singletons. <a href="http://stackoverflow.com/questions/484635/are-global-variables-bad">→</a></li>
+<li>Evita un numero di parametri superiore a 4. <a href="http://sourcemaking.com/refactoring/long-parameter-list">→</a></li>
 <li>Limita il numero di collaboratori di un oggetto (le entità da cui dipende l&#39;oggetto).</li>
 <li>Limita il numero di dipendenze di un oggetto (le entitità che dipendono dall&#39;oggetto).</li>
-<li>Prediligi la composizione rispetto all&#39;ereditarietà. <a href="/guidelines/http://stackoverflow.com/questions/49002/prefer-composition-over-inheritance">→</a></li>
-<li>Prediligi metodi brevi. Ottimo rimanere tra 1 e 5 righe. <a href="/guidelines/http://c2.com/cgi/wiki?LongMethodSmell">→</a></li>
-<li>Prediligi piccoli oggetti, con una singola responsabilità ben definita. Quando un oggetto supera le 100 righe, è probabile stia facendo troppe cose. <a href="/guidelines/http://c2.com/cgi/wiki?OneResponsibilityRule">→</a></li>
-<li><em>Tell, don&rsquo;t ask</em>. <a href="/guidelines/http://c2.com/cgi/wiki?TellDontAsk">→</a></li>
-<li>Evita metodi che uniscono responsabilità <em>query</em> e <em>command</em>. <a href="/guidelines/http://en.wikipedia.org/wiki/Command%E2%80%93query_separation">→</a></li>
+<li>Prediligi la composizione rispetto all&#39;ereditarietà. <a href="http://stackoverflow.com/questions/49002/prefer-composition-over-inheritance">→</a></li>
+<li>Prediligi metodi brevi. Ottimo rimanere tra 1 e 5 righe. <a href="http://c2.com/cgi/wiki?LongMethodSmell">→</a></li>
+<li>Prediligi piccoli oggetti, con una singola responsabilità ben definita. Quando un oggetto supera le 100 righe, è probabile stia facendo troppe cose. <a href="http://c2.com/cgi/wiki?OneResponsibilityRule">→</a></li>
+<li><em>Tell, don&rsquo;t ask</em>. <a href="http://c2.com/cgi/wiki?TellDontAsk">→</a></li>
+<li>Evita metodi che uniscono responsabilità <em>query</em> e <em>command</em>. <a href="http://en.wikipedia.org/wiki/Command%E2%80%93query_separation">→</a></li>
 </ul>
 
 <h2>Ruby</h2>
@@ -49,27 +49,27 @@
 <li>Evita il monkey-patching.</li>
 <li>Prediligi la creazione di classi all&#39;inclusione di moduli per condividere funzionalità tra più oggetti.</li>
 <li>Prediligi lo scope <code>private</code> a <code>protected</code>. Usa <code>protected</code> solo per i metodi di comparazione come <code>def ==(other)</code>, <code>def &lt;(other)</code>, e <code>def &gt;(other)</code>.</li>
-<li>Effettua <code>rescue</code> di <code>StandardError</code>, non <code>Exception</code>. <a href="/guidelines/http://robots.thoughtbot.com/rescue-standarderror-not-exception/">→</a></li>
+<li>Effettua <code>rescue</code> di <code>StandardError</code>, non <code>Exception</code>. <a href="http://robots.thoughtbot.com/rescue-standarderror-not-exception/">→</a></li>
 </ul>
 
 <h2>Rails</h2>
 
 <ul>
-<li>Evita di bypassare le validazioni con metodi quali <code>save(validate: false)</code> o <code>update_attribute</code>. <a href="/guidelines/https://github.com/garybernhardt/do_not_want">→</a></li>
+<li>Evita di bypassare le validazioni con metodi quali <code>save(validate: false)</code> o <code>update_attribute</code>. <a href="https://github.com/garybernhardt/do_not_want">→</a></li>
 <li>Non modificare una migrazione dopo che è stata mergiata su master se il cambiamento voluto può essere introdotto con una seconda migrazione.</li>
 <li>Non richiamare le classi dei modelli <code>ActiveRecord</code> all&#39;interno dalle viste.</li>
 <li>Non usare variabili d&#39;istanza nei partials.</li>
 <li>Non usare SQL o frammenti SQL (<code>where(&#39;inviter_id IS NOT NULL&#39;)</code>) al di fuori dei modelli.</li>
 <li>Valida la presenza dell&#39;associazione <code>belongs_to</code> (<code>user</code>), non della foreign key (<code>user_id</code>).</li>
-<li>Aggiungi un indice DB per ogni foreign key. <a href="/guidelines/https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">→</a></li>
+<li>Aggiungi un indice DB per ogni foreign key. <a href="https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">→</a></li>
 <li>Imposta valori di default, validazioni di presenza o unicità nei modelli anche a livello di migrazione DB.</li>
 <li>Mantieni <code>db/schema.rb</code> sotto version control.</li>
 <li>Non fare riferimento a modelli <code>ActiveRecord</code> a livello di migrazione.</li>
-<li>Nelle viste mailer usa named routes con suffissi <code>_url</code>. In tutti gli altri casi, usa il suffisso <code>_path</code>. <a href="/guidelines/http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30">→</a></li>
+<li>Nelle viste mailer usa named routes con suffissi <code>_url</code>. In tutti gli altri casi, usa il suffisso <code>_path</code>. <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30">→</a></li>
 <li>Evita di instanziare più di un oggetto per azione nei controller.</li>
 <li>Sfrutta solo una variabile di istanza per vista.</li>
-<li>Assicurati che le migrazioni down funzionino. <a href="/guidelines/http://stefanoverna.com/blog/2013/08/test-down-migrations-tip.html">→</a></li>
-<li>Evita l&#39;introduzione di nuovi metodi helper. Prediligi un&#39;approccio ad oggetti tramite l&#39;uso di presenters. <a href="/guidelines/http://nicksda.apotomo.de/2011/10/rails-misapprehensions-helpers-are-shit/">→</a></li>
+<li>Assicurati che le migrazioni down funzionino. <a href="http://stefanoverna.com/blog/2013/08/test-down-migrations-tip.html">→</a></li>
+<li>Evita l&#39;introduzione di nuovi metodi helper. Prediligi un&#39;approccio ad oggetti tramite l&#39;uso di presenters. <a href="http://nicksda.apotomo.de/2011/10/rails-misapprehensions-helpers-are-shit/">→</a></li>
 <li>A livello di model <code>ActiveRecord</code> specifica unicamente validazioni, relazioni e scopes/query.</li>
 <li>Non specificare a livello model <code>ActiveRecord</code> validazioni che necessitino il lookup di relazioni.</li>
 </ul>
@@ -82,28 +82,28 @@
 <li>Evita <code>its</code>, <code>let!</code>, <code>specify</code> e <code>subject</code> in RSpec. Prediligi approcci espliciti e coerenti.</li>
 <li>Specifica una sola expectation per test.</li>
 <li>Separa le fasi di <em>setup</em> ed <em>exercise</em> dalla fase <em>verify</em> del test tramite blocchi <code>before</code>.</li>
-<li>Evita <code>.any_instance</code>, sfrutta il <em>dependency injection</em>. <a href="/guidelines/http://kresimirbojcic.com/2011/11/19/dependency-injection-in-ruby.html">→</a></li>
+<li>Evita <code>.any_instance</code>, sfrutta il <em>dependency injection</em>. <a href="http://kresimirbojcic.com/2011/11/19/dependency-injection-in-ruby.html">→</a></li>
 <li>Evita l&#39;utilizzo di variabili di istanza.</li>
-<li>Disabilita richieste HTTP verso servizi esterni tramite <a href="/guidelines/https://github.com/bblimke/webmock">WebMock</a> o <a href="/guidelines/https://github.com/chrisk/fakeweb">FakeWeb</a>.</li>
+<li>Disabilita richieste HTTP verso servizi esterni tramite <a href="https://github.com/bblimke/webmock">WebMock</a> o <a href="https://github.com/chrisk/fakeweb">FakeWeb</a>.</li>
 </ul>
 
 <h2>Unit testing</h2>
 
 <ul>
-<li>Non testare i metodi privati (non stubbare il SUT). <a href="/guidelines/http://robots.thoughtbot.com/don-t-stub-the-system-under-test/">→</a></li>
+<li>Non testare i metodi privati (non stubbare il SUT). <a href="http://robots.thoughtbot.com/don-t-stub-the-system-under-test/">→</a></li>
 <li>Testa metodi di tipo query con expectations sul valore di ritorno.</li>
 <li>Testa metodi di tipo command con expectations su diretti cambiamenti
 di stato provocati sull&#39;interfaccia pubblica dell&#39;oggetto.</li>
 <li>Non testare chiamate di tipo query verso oggetti collaboratori.</li>
-<li>Testa chiamate di tipo command verso oggetti collaboratori tramite stubs e spies (non mocks). <a href="/guidelines/http://robots.thoughtbot.com/post/159805295/spy-vs-spy">→</a></li>
-<li>Mantieni gli stub in sync con l&#39;API che vanno a simulare. Nel farlo prediligi approcci unit rispetto a test di integrazione. <a href="/guidelines/https://www.relishaphttps://www.relishapp.com/bogus/bogus/v/0-1-4/docs/p.com/bogus/bogus/v/0-1-4/docs/">→</a></li>
+<li>Testa chiamate di tipo command verso oggetti collaboratori tramite stubs e spies (non mocks). <a href="http://robots.thoughtbot.com/post/159805295/spy-vs-spy">→</a></li>
+<li>Mantieni gli stub in sync con l&#39;API che vanno a simulare. Nel farlo prediligi approcci unit rispetto a test di integrazione. <a href="https://www.relishaphttps//www.relishapp.com/bogus/bogus/v/0-1-4/docs/p.com/bogus/bogus/v/0-1-4/docs/">→</a></li>
 </ul>
 
 <h2>Gemfile</h2>
 
 <ul>
-<li>Dichiara la versione ruby da utilizzare per un progetto. <a href="/guidelines/http://bundler.io/v1.3/gemfile_ruby.html">→</a></li>
-<li>Specifica la versione con <code>~&gt;</code> per le gemme che seguono il semantic versioning (<code>rspec</code>, <code>factory_girl</code>, <code>capybara</code>). <a href="/guidelines/http://robots.thoughtbot.com/post/35717411108/a-healthy-bundle">→</a></li>
+<li>Dichiara la versione ruby da utilizzare per un progetto. <a href="http://bundler.io/v1.3/gemfile_ruby.html">→</a></li>
+<li>Specifica la versione con <code>~&gt;</code> per le gemme che seguono il semantic versioning (<code>rspec</code>, <code>factory_girl</code>, <code>capybara</code>). <a href="http://robots.thoughtbot.com/post/35717411108/a-healthy-bundle">→</a></li>
 <li>Specifica la versione esatta per gemme fragili (<code>rails</code>).</li>
 <li>Non specificare una versione per gemme stabili e sicure (<code>pg</code>, <code>thin</code>).</li>
 </ul>

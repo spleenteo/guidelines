@@ -33,7 +33,7 @@
 @import "shame"
 </pre>
 
-<p>Per facilitare il mantenimento del file, nel caso di progetto Rails 3.1+, è possibile sfruttare <a href="/guidelines/https://github.com/rails/sass-rails#glob-imports">il file globbing nella direttiva <code>@import</code></a>.</p>
+<p>Per facilitare il mantenimento del file, nel caso di progetto Rails 3.1+, è possibile sfruttare <a href="https://github.com/rails/sass-rails#glob-imports">il file globbing nella direttiva <code>@import</code></a>.</p>
 
 <h2>Shamefile</h2>
 
@@ -55,7 +55,7 @@
 
 <h2>Basefile</h2>
 
-<p>Il partial <code>_base.css.sass</code> contiene gli stili di default applicati ad ogni pagina. Tipicamente contiene una direttiva <code>@import</code> che include un <a href="/guidelines/http://necolas.github.io/normalize.css/">CSS reset</a> e soli <em>tag selectors</em>.</p>
+<p>Il partial <code>_base.css.sass</code> contiene gli stili di default applicati ad ogni pagina. Tipicamente contiene una direttiva <code>@import</code> che include un <a href="http://necolas.github.io/normalize.css/">CSS reset</a> e soli <em>tag selectors</em>.</p>
 
 <p>E&#39; importante fare in modo di aggiornare nel tempo il Basefile, con l&#39;obiettivo di ridurre al minimo l&#39;override in cascata all&#39;interno di blocchi e stili di formattazione.</p>
 
@@ -70,7 +70,7 @@
 
 <p>Sebbene si riconosce a queste regole un utilizzo pratico indiscutibile, è fondamentale mantenerle in numero ridotto, per evitare <em>classitis</em> nell&#39;HTML.</p>
 
-<p>A fini esemplificativi, la tecnica <em><a href="/guidelines/http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/">double-stranded heading hierarchy</a></em> può essere implementata con selettori di formattazione:</p>
+<p>A fini esemplificativi, la tecnica <em><a href="http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/">double-stranded heading hierarchy</a></em> può essere implementata con selettori di formattazione:</p>
 <pre class="highlight plaintext">.f-size-alpha
   font-size: 30px
 
@@ -85,7 +85,7 @@
 
 <h2>BEM (Block-Element-Modifier)</h2>
 
-<p>Il BEM è una <a href="/guidelines/http://bem.info/">convenzione di naming codificata da Yandex</a> che ha come obiettivo principale quello di garantire una maggiore trasparenza e chiarezza di intenti.</p>
+<p>Il BEM è una <a href="http://bem.info/">convenzione di naming codificata da Yandex</a> che ha come obiettivo principale quello di garantire una maggiore trasparenza e chiarezza di intenti.</p>
 
 <p>Ad esclusione delle poche regole specificate nei fogli di stile già descritti, la stragrande maggioranza del codebase segue una notazione BEM, e risiede all&#39;interno della directory <code>blocks</code>.</p>
 
@@ -211,14 +211,14 @@ La ragione dei doppi trattini ed underscores sta nella possibilità di poter con
 <h2>Best practices CSS</h2>
 
 <ul>
-<li>Definisci tutte le classi CSS in <code>spinal-case</code>. <a href="/guidelines/http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
+<li>Definisci tutte le classi CSS in <code>spinal-case</code>. <a href="http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
 <li>Definisci i colori con sintassi esadecimale (<code>#fff</code>) ed <code>rbga()</code></li>
 <li>Limita l&#39;utilizzo del modificatore <code>!important</code> a selettori di stato</li>
 <li>Non utilizzare <em>ID selectors</em> (<code>#header</code>)</li>
 <li>Non definire sotto-elementi di modulo con <em>selector-depth</em> superiore a 3.</li>
-<li>Evita un <em>depth of applicability</em> superiore a 3. <a href="/guidelines/http://smacss.com/book/applicability">→</a></li>
+<li>Evita un <em>depth of applicability</em> superiore a 3. <a href="http://smacss.com/book/applicability">→</a></li>
 <li>Sfrutta i <code>rem</code> con fallback a <code>px</code> per il font-sizing e il vertical-spacing</li>
-<li>Favorisci il riutilizzo producendo una <em>pattern library</em> HTML che mostri i diversi moduli e layout esistenti, ed un loro utilizzo pratico. <a href="/guidelines/http://ux.mailchimp.com/patterns">→</a></li>
+<li>Favorisci il riutilizzo producendo una <em>pattern library</em> HTML che mostri i diversi moduli e layout esistenti, ed un loro utilizzo pratico. <a href="http://ux.mailchimp.com/patterns">→</a></li>
 </ul>
 
 <h2>Best practices Sass</h2>
@@ -226,7 +226,7 @@ La ragione dei doppi trattini ed underscores sta nella possibilità di poter con
 <ul>
 <li>Usa Sass, non Scss</li>
 <li>Prediligi Bourbon a Compass</li>
-<li>Definisci mixin e variabili in <code>spinal-case</code>. <a href="/guidelines/http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
+<li>Definisci mixin e variabili in <code>spinal-case</code>. <a href="http://en.wikipedia.org/wiki/Letter_case#Computers">→</a></li>
 <li>Limita il numero di possibili varianti di colore, font-family, font-size, spaziatura verticale tra i blocchi e breakpoint all&#39;interno del sito, parametrizzandole all&#39;interno di appositi file di variabili (<code>_colors.css.sass</code>, <code>_font-families.css.sass</code>, etc.)</li>
 <li>Produci dei mixin che rinforzino le convenzioni in uso all&#39;interno del codebase (es. per l&#39;utilizzo dei <code>rem</code> o per applicare una tra le possibili varianti di font-size)</li>
 <li>Prefissa i nomi di variabile dei colori con <code>c-</code> e i breakpoint con <code>b-</code></li>
