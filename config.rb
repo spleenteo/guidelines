@@ -37,18 +37,21 @@ activate :directory_indexes
 # end
 
 # Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
+helpers do
+  if environment == :build
+    alias :old_link_to :link_to
+    def link_to(name, path, options = {})
+      prefixed_path = (http_prefix + path).gsub(/([^:])\/\//, '\1/')
+      old_link_to(name, prefixed_path, options)
+    end
+  end
+end
 
 set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 set :partials_dir, 'partials'
-set :relative_links, true
 
 
 activate :deploy do |deploy|
@@ -71,8 +74,8 @@ configure :build do
   # activate :asset_hash
 
   # Use relative URLs
-  activate :relative_assets
+  #activate :relative_assets
 
   # Or use a different image path
-  # set :http_prefix, "/Content/images/"
+  set :http_prefix, "/guidelines/"
 end
