@@ -1,36 +1,36 @@
-<!DOCTYPE html><html><head><title>Sviluppo best practices per l'utilizzo di bem, sass e assets — Guidelines Cantiere Creativo</title><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><link href="/guidelines/stylesheets/application.css" rel="stylesheet" type="text/css" /></head><body><section class="aside"><header class="aside__header"><h1 class="header__title">Guidelines<br>Cantiere Creativo</h1></header><nav class="chapters"><h5 class="chapters__title">Intro</h5><ul class="chapters__content"><li><a href="/guidelines/">Home</a></li><li><a href="/guidelines/documenti/contratto-cantiere-creativo-marzo-13.pdf">Modello contratto</a></li></ul><h5 class="chapters__title">Metodologia</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/processo">Processo</a></li><li><a href="/guidelines/chapters/clienti">Clienti</a></li><li><a href="/guidelines/chapters/team-planning">Team Planning</a></li></ul><h5 class="chapters__title">Coding</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/protocollo">Protocollo</a></li><li><a href="/guidelines/chapters/code">Code</a></li><li><a href="/guidelines/chapters/frontend">Frontend</a></li><li><a href="/guidelines/chapters/design">Design</a></li></ul><h5 class="chapters__title">Sharing</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/blog">Blog</a></li><li><a href="/guidelines/chapters/twitter">Twitter</a></li></ul><h5 class="chapters__title">Formazione</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/ricerca">Ricerca</a></li><li><a href="/guidelines/chapters/hackathons">Hackathons</a></li></ul></nav><footer class="aside__footer"><ul><li><a class="aside__footer__link" href="http://www.cantierecreativo.net">Cantiere Creativo</a></li><li><a class="aside__footer__link" href="http://www.leanpanda.com">LeanPanda</a></li><li><a class="aside__footer__link" href="http://twitter.com/teamcantiere">@teamcantiere</a></li></ul></footer></section><section class="l-content"><article class="formatted-content"><h1>Sviluppo frontend</h1>
+<!DOCTYPE html><html><head><title>Sviluppo best practices per l'utilizzo di bem, sass e assets — Guidelines Cantiere Creativo</title><meta charset="utf-8" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><link href="/guidelines/stylesheets/application.css" rel="stylesheet" type="text/css" /></head><body><section class="aside"><header class="aside__header"><h1 class="header__title">Guidelines<br>Cantiere Creativo</h1></header><nav class="chapters"><h5 class="chapters__title">Intro</h5><ul class="chapters__content"><li><a href="/guidelines/">Home</a></li><li><a href="/guidelines/documenti/contratto-cantiere-creativo-marzo-13.pdf">Modello contratto</a></li></ul><h5 class="chapters__title">Metodologia</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/processo">Processo</a></li><li><a href="/guidelines/chapters/clienti">Clienti</a></li><li><a href="/guidelines/chapters/team-planning">Team Planning</a></li></ul><h5 class="chapters__title">Coding</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/design">Design</a></li><li><a href="/guidelines/chapters/frontend">Frontend</a></li><li><a href="/guidelines/chapters/code">Code</a></li><li><a href="/guidelines/chapters/protocollo">Protocollo</a></li></ul><h5 class="chapters__title">Sharing</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/blog">Blog</a></li><li><a href="/guidelines/chapters/twitter">Twitter</a></li></ul><h5 class="chapters__title">Formazione</h5><ul class="chapters__content"><li><a href="/guidelines/chapters/ricerca">Ricerca</a></li><li><a href="/guidelines/chapters/hackathons">Hackathons</a></li></ul></nav><footer class="aside__footer"><ul><li><a class="aside__footer__link" href="http://www.cantierecreativo.net">Cantiere Creativo</a></li><li><a class="aside__footer__link" href="http://www.leanpanda.com">LeanPanda</a></li><li><a class="aside__footer__link" href="http://twitter.com/teamcantiere">@teamcantiere</a></li></ul></footer></section><section class="l-content"><article class="formatted-content"><h1>Sviluppo frontend</h1>
 
 <p>Definire convenzioni ed un lessico condiviso per operazioni e pattern d&#39;uso comune nello sviluppo frontend è fondamentale per facilitare uno scambio di idee più fluido tra sviluppatori, semplificando l&#39;introduzione di nuovi sviluppatori e/o passaggi di consegne.</p>
 
 <p>La struttura consigliata per un nuovo progetto Sass in partenza è la seguente:</p>
-<pre class="highlight plaintext">app/assets/stylesheets/
-├── blocks
-│   ├── _block-name.css.sass
-│   └── ...
-├── formatting
-│   ├── _formatting-category.css.sass
-│   └── ...
-├── mixins
-│   ├── _mixin-name.css.sass
-│   └── ...
-├── variables
-│   ├── _variables-category.css.sass
-│   └── ...
-├── _base.css.sass
-├── _shame.css.sass
-└── application.css.sass
+<pre class="highlight plaintext">    app/assets/stylesheets/
+    ├── blocks
+    │   ├── _block-name.css.sass
+    │   └── ...
+    ├── formatting
+    │   ├── _formatting-category.css.sass
+    │   └── ...
+    ├── mixins
+    │   ├── _mixin-name.css.sass
+    │   └── ...
+    ├── variables
+    │   ├── _variables-category.css.sass
+    │   └── ...
+    ├── _base.css.sass
+    ├── _shame.css.sass
+    └── application.css.sass
 </pre>
 
 <h2>Rootfile</h2>
 
 <p>Il Rootfile, <code>application.css.sass</code>, si occupa esclusivamente di includere ordinatamente i partial:</p>
-<pre class="highlight plaintext">@import "variables/**/*"
-@import "mixins/**/*"
+<pre class="highlight sass">    <span class="k">@import</span> <span class="s">"variables/**/*"</span>
+    <span class="o">@</span><span class="nt">import</span> <span class="s2">"mixins/**/*"</span>
 
-@import "base"
-@import "formatting/**/*"
-@import "blocks/**/*"
-@import "shame"
+    <span class="k">@import</span> <span class="s">"base"</span>
+    <span class="o">@</span><span class="nt">import</span> <span class="s2">"formatting/**/*"</span>
+    <span class="k">@import</span> <span class="s">"blocks/**/*"</span>
+    <span class="o">@</span><span class="nt">import</span> <span class="s2">"shame"</span>
 </pre>
 
 <p>Per facilitare il mantenimento del file, nel caso di progetto Rails 3.1+, è possibile sfruttare <a href="https://github.com/rails/sass-rails#glob-imports">il file globbing nella direttiva <code>@import</code></a>.</p>
@@ -64,23 +64,23 @@
 <p>Sono <code>class selectors</code> utili ad evitare la creazione di blocchi specifici  per pagine che — magari dopo il riutilizzo di blocchi già esistenti nel codebase — richiederebbero ancora minime modifiche alla formattazione del testo (allineamento, padding, dimensione font, etc).</p>
 
 <p>Ogni selettore di formattazione contiene tipicamente una sola regola. Per facilitare l&#39;identificazione di selettori di formattazione all&#39;interno dell&#39;HTML, i nomi delle classi vengono prefissate con <code>f-</code>:</p>
-<pre class="highlight plaintext">.f-right-aligned
-  text-align: right
+<pre class="highlight sass">  <span class="nc">.f-right-aligned</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">right</span>
 </pre>
 
 <p>Sebbene si riconosce a queste regole un utilizzo pratico indiscutibile, è fondamentale mantenerle in numero ridotto, per evitare <em>classitis</em> nell&#39;HTML.</p>
 
 <p>A fini esemplificativi, la tecnica <em><a href="http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/">double-stranded heading hierarchy</a></em> può essere implementata con selettori di formattazione:</p>
-<pre class="highlight plaintext">.f-size-alpha
-  font-size: 30px
+<pre class="highlight sass">  <span class="nc">.f-size-alpha</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">30px</span>
 
-.f-size-beta
-  font-size: 26px
+  <span class="nc">.f-size-beta</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">26px</span>
 
-.f-size-gamma
-  font-size: 23px
+  <span class="nc">.f-size-gamma</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">23px</span>
 
-...
+  <span class="nc">...</span>
 </pre>
 
 <h2>BEM (Block-Element-Modifier)</h2>
@@ -90,9 +90,9 @@
 <p>Ad esclusione delle poche regole specificate nei fogli di stile già descritti, la stragrande maggioranza del codebase segue una notazione BEM, e risiede all&#39;interno della directory <code>blocks</code>.</p>
 
 <p>La convenzione BEM è la seguente:</p>
-<pre class="highlight plaintext">.block
-.block__element
-.block--modifier
+<pre class="highlight sass">  <span class="nc">.block</span>
+  <span class="nc">.block__element</span>
+  <span class="nc">.block--modifier</span>
 </pre>
 
 <p>Dove:</p>
@@ -118,9 +118,9 @@
 <p>A differenza dei <em>block-modifiers</em>, gli stati rappresentano cambiamenti di stato dinamici/programmatici all&#39;interno del layout della pagina (es. Javascript).</p>
 
 <p>Per facilitarne l&#39;identificazione a livello HTML, i nomi degli stati vengono prefissati con <code>is-</code>:</p>
-<pre class="highlight plaintext">.is-active
-.is-collapsed
-.is-hidden
+<pre class="highlight sass">  <span class="nc">.is-active</span>
+  <span class="nc">.is-collapsed</span>
+  <span class="nc">.is-hidden</span>
 </pre>
 
 <p>E&#39; possibile introdurre stati sia a livello di blocco, che di sotto-elemento di blocco.</p>
@@ -132,17 +132,17 @@
 <p>Per ovviare alla necessità di spaziare tra di loro i differenti blocchi presenti all&#39;interno di una pagina, è possibile ricorrere al nesting di blocchi; un blocco il cui scopo è unicamente quello di posizionare spazialmente i sotto-blocchi che contiene prende il nome di <em>layout block</em>. Esempi tipici di layout blocks si hanno in blocchi che organizzano i propri sotto-elementi in griglie o in colonne main-content/sidebar.</p>
 
 <p>Per facilitare l&#39;identificazione di layout blocks all&#39;interno dell&#39;HTML, i nomi vengono prefissati con <code>l-</code>:</p>
-<pre class="highlight plaintext">.l-grid
-.l-two-cols
-.l-spacing
+<pre class="highlight sass">  <span class="nc">.l-grid</span>
+  <span class="nc">.l-two-cols</span>
+  <span class="nc">.l-spacing</span>
 </pre>
 
 <h3>Ma il BEM esteticamente è brutto!</h3>
 
 <p>Ad oggi sfortunatamente il CSS non ci consente molta scelta in termini di caratteri non alfanumerici da poter utilizzare all&#39;interno delle classi come &ldquo;delimitatori&rdquo;.
 La ragione dei doppi trattini ed underscores sta nella possibilità di poter continuare ad utilizzare lo <em>spinal-case</em> classico per dare un nome a blocchi, elementi e modificatori:</p>
-<pre class="highlight plaintext">.site-search
-.site-search__sub-element
+<pre class="highlight sass">  <span class="nc">.site-search</span>
+  <span class="nc">.site-search__sub-element</span>
 </pre>
 
 <p>In definitiva sì, la notazione BEM è più verbosa e al primo sguardo può sembrare &ldquo;strana&rdquo;, ma i vantaggi in termini di chiarezza ed espressività del codice risultante superano di molto possibili critiche sull&#39;aspetto estetico.</p>
@@ -156,32 +156,34 @@ La ragione dei doppi trattini ed underscores sta nella possibilità di poter con
 <h3>Quando utilizzare <em>child+tag selectors</em> all&#39;interno di blocchi</h3>
 
 <p>Supponiamo di voler realizzare un <em>layout block</em> che permetta di rendere floattanti i suoi sotto-blocchi:</p>
-<pre class="highlight plaintext">&lt;ul class="l-floating"&gt;
-  &lt;li class="l-floating__item"&gt;...&lt;/li&gt;
-  &lt;li class="l-floating__item"&gt;...&lt;/li&gt;
-&lt;ul&gt;
-</pre>
+<pre class="highlight html">    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"l-floating"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"l-floating__item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"l-floating__item"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+``
 
-<p>La convenzione BEM ci costringe a dover aggiungere una classe esplicita (<code>.l-floating__item</code>) ad ogni sotto-elemento. Confrontiamo questa scelta con un possibile selettore non-BEM:</p>
-<pre class="highlight plaintext">.l-floating &gt; li
+La convenzione BEM ci costringe a dover aggiungere una classe esplicita (`.l-floating__item`) ad ogni sotto-elemento. Confrontiamo questa scelta con un possibile selettore non-BEM:
+
+```sass
+  .l-floating &gt; li
 </pre>
 
 <p>Sebbene meno verboso a livello di HTML che richiede, il secondo selettore non permette di intuire istantaneamente per ogni <code>&lt;li&gt;</code> il blocco che ha la responsabilità di stilizzarlo:</p>
-<pre class="highlight plaintext">&lt;section class="another-block"&gt;
-  ...
-  &lt;ul class="l-floating"&gt;
-    &lt;li&gt;...&lt;/li&gt;
-    &lt;li&gt;...&lt;/li&gt;
-  &lt;ul&gt;
-  ...
-&lt;/section&gt;
+<pre class="highlight html">  <span class="nt">&lt;section</span> <span class="na">class=</span><span class="s">"another-block"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"l-floating"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>...<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+    ...
+  <span class="nt">&lt;/section&gt;</span>
 </pre>
 
 <p>Rende inoltre meno riutilizzabile lo stile, non consentendone la sua applicazione ad esempio in caso di cambio di tag dettato da motivi non prettamente estetici (semantica, SEO, accessibilità, etc):</p>
-<pre class="highlight plaintext">&lt;div class="l-floating"&gt;
-  &lt;div&gt;...&lt;/div&gt;
-  &lt;div&gt;...&lt;/div&gt;
-&lt;ul&gt;
+<pre class="highlight html">  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"l-floating"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
 </pre>
 
 <p>Presupposto del BEM è un <em>separation of concerns</em> netto tra estetica e semantica in grado di garantire il massimo riutilizzo di blocchi già presenti, senza richiedere modifiche a codice già presente nel codebase.</p>
@@ -193,19 +195,17 @@ La ragione dei doppi trattini ed underscores sta nella possibilità di poter con
 <h3>Block modifiers ed @extend</h3>
 
 <p>In alternativa allo stile BEM classico di applicazione di <em>block-modifiers</em>:</p>
-<pre class="highlight plaintext">&lt;div class="block block--modifier"&gt;
-&lt;/div&gt;
+<pre class="highlight html">  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block block--modifier"</span><span class="nt">&gt;&lt;/div&gt;</span>
 </pre>
 
 <p>E&#39; possibile sfruttare la direttiva Sass <code>@extend</code>:</p>
-<pre class="highlight plaintext">.block--modifier
-  @extend .block
-  ...
+<pre class="highlight sass">  <span class="nc">.block--modifier</span>
+    <span class="k">@extend</span> <span class="nc">.block</span>
+    <span class="nc">...</span>
 </pre>
 
 <p>Riducendo il <em>classitis</em> HTML:</p>
-<pre class="highlight plaintext">&lt;div class="block--modifier"&gt;
-&lt;/div&gt;
+<pre class="highlight html">    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"block--modifier"</span><span class="nt">&gt;</span>   <span class="nt">&lt;/div&gt;</span>
 </pre>
 
 <h2>Best practices CSS</h2>
