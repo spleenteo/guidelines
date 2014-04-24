@@ -41,7 +41,10 @@ helpers do
   if environment == :build
     alias :old_link_to :link_to
     def link_to(name, path, options = {})
-      target_path = options[:relative] ? path : (http_prefix + path).gsub(/([^:])\/\//, '\1/')
+      target_path = path
+      unless options[:relative] || path.start_with?('http')
+        target_path = (http_prefix + path).gsub(/([^:])\/\//, '\1/')
+      end
       old_link_to(name, target_path, options)
     end
   end
