@@ -29,7 +29,9 @@ activate :livereload
 activate :syntax, :line_numbers => false
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true, :smartypants => true
+set :redcarpet, :with_toc_data => true
 activate :directory_indexes
+
 
 # Reload the browser automatically whenever files change
 # configure :development do

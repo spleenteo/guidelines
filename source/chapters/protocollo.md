@@ -7,32 +7,44 @@ title: come iniziare un nuovo lavoro
 
 Installa Suspenders.
 
+```rails
     gem install suspenders
+```
 
 Crea l'app
 
+```ruby
     suspenders new-project
+```
 
 ## Set up di un progetto Rails
 
 Ottieni il codice:
 
+```ruby
     git clone git@github.com:organization/project.git
+```
 
 Prepara le dipendenze dell'app.
 
+```ruby
     cd project
     ./bin/setup
+```
 
 Usa il plugin [Heroku config][p-heroku-config] per copiare le variabili d'environment:
 
+```ruby
     heroku config:pull --remote staging
+```
 
 Elimina le righe in `.env` superflue (es. `S3_SECRET`)
 
 Utilizza [Foreman][p-foreman] per lanciare l'applicazione:
 
+```ruby
     foreman start
+```
 
 [p-heroku-config]: https://github.com/ddollar/heroku-config
 [p-foreman]: https://github.com/ddollar/foreman
@@ -46,41 +58,52 @@ Utilizza [Foreman][p-foreman] per lanciare l'applicazione:
 
 Crea una nuovo branch locale per la feature, forkando da master, e aggiungendo le tue iniziali come prefisso del branch.
 
+```ruby
     git checkout master
     git pull
     git checkout -b <branch-name>
+```
 
 Effettua spesso rebase dal master per includere eventuali modifiche provenienti da remoto.
 
+```ruby
     git fetch origin
     git rebase origin/master
+```
 
 Risolvi eventuali conflitti, e prosegui col rebase.
 
+```ruby
     # edit conflicted files on editor
     git add -all
     git rebase --continue
+```
 
 Quando una feature è completa ed i test passano, effettua un commit.
 
+```ruby
     rake
     git add --all
     git status
     git commit --verbose
+```
 
 Scrivi un [buon messaggio di commit][p-commit-message].
 
+```git
     Present-tense summary under 50 characters
 
     * More information about commit (under 72 characters).
     * More information about commit (under 72 characters).
 
     http://project.management-system.com/ticket/123
+```
 
 Pusha il tuo branch.
 
+```ruby
     git push origin <branch-name>
-
+```
 Procedi con l'effettuare una pull request. Richiedi un code review sulla stanza di development su [Hipchat][p-hipchat].
 
 [p-commit-message]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
@@ -94,10 +117,12 @@ Il reviewer quando possibile commenta e chiede chiarimenti direttamente all'inte
 
 Il reviewer può effettuare piccoli cambiamenti al codice in prima persona, effettuando un checkout del branch.
 
+```ruby
     git checkout <branch-name>
     rake db:migrate db:test:prepare
     rake
     git diff staging/master..HEAD
+```
 
 Una volta testata la modifica su browser e lanciati i test, può committare e pushare la modifica sul branch remoto.
 
@@ -107,40 +132,51 @@ Quando il reviewer è soddisfatto del risultato finale e la piattaforma di conti
 
 Procedi con un rebase interattivo. Effettua lo squash di commit minori o temporanei (es. "Fix whitespace") su pochi commit significativi con tutti i  test verdi. Modifica il messaggio di commit dove non chiari o espliciti. Assicurati che ogni commit finale passi i test.
 
+```ruby
     git checkout <branch-name>
     git fetch origin
     git rebase -i origin/master
     rake
+```
 
 Ricontrolla la lista di commit definitiva. Controlla i file modificati. A questo punto mergia il branch su master, senza merge bubbles.
 
+```ruby
     git log origin/master..<branch-name>
     git diff --stat origin/master
     git checkout master
     git merge <branch-name> --ff-only
     git push
+```
 
 Rimuovi il feature branch da remoto e da locale.
 
+```bash
     git push origin --delete <branch-name>
     git branch --delete <branch-name>
+```
 
 ## Deploy di una feature
 
 Controlla la lista di nuovi commit. Controlla i file modificati. A questo punto pusha sul branch staging, deployando.
 
+```git
     git fetch staging
     git log staging/master..master
     git diff --stat staging/master
     git push staging
+```
 
 Se necessario, lancia le nuove migrazioni and restarta i dynos.
 
+```ruby
     heroku run rake db:migrate --remote staging
     heroku restart --remote staging
+```
 
 Testa la nuova feature su browser e deploya in produzione, seguendo il medesimo iter.
 
+```ruby
     git fetch production
     git log production/master..master
     git diff --stat production/master
@@ -148,5 +184,6 @@ Testa la nuova feature su browser e deploya in produzione, seguendo il medesimo 
     heroku run rake db:migrate --remote production
     heroku restart --remote production
     watch heroku ps --remote production
+```
 
 Chiudi la pull request and commenta `Merged.`

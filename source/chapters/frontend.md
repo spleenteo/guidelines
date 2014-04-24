@@ -7,6 +7,7 @@ Definire convenzioni ed un lessico condiviso per operazioni e pattern d'uso comu
 
 La struttura consigliata per un nuovo progetto Sass in partenza è la seguente:
 
+```filesystem
     app/assets/stylesheets/
     ├── blocks
     │   ├── _block-name.css.sass
@@ -23,11 +24,13 @@ La struttura consigliata per un nuovo progetto Sass in partenza è la seguente:
     ├── _base.css.sass
     ├── _shame.css.sass
     └── application.css.sass
+```
 
 ## Rootfile
 
 Il Rootfile, `application.css.sass`, si occupa esclusivamente di includere ordinatamente i partial:
 
+```sass
     @import "variables/**/*"
     @import "mixins/**/*"
 
@@ -35,6 +38,7 @@ Il Rootfile, `application.css.sass`, si occupa esclusivamente di includere ordin
     @import "formatting/**/*"
     @import "blocks/**/*"
     @import "shame"
+```
 
 Per facilitare il mantenimento del file, nel caso di progetto Rails 3.1+, è possibile sfruttare [il file globbing nella direttiva `@import`](https://github.com/rails/sass-rails#glob-imports).
 
@@ -64,24 +68,27 @@ Sono `class selectors` utili ad evitare la creazione di blocchi specifici  per p
 
 Ogni selettore di formattazione contiene tipicamente una sola regola. Per facilitare l'identificazione di selettori di formattazione all'interno dell'HTML, i nomi delle classi vengono prefissate con `f-`:
 
-    .f-right-aligned
-      text-align: right
+```sass
+  .f-right-aligned
+    text-align: right
+```
 
 Sebbene si riconosce a queste regole un utilizzo pratico indiscutibile, è fondamentale mantenerle in numero ridotto, per evitare _classitis_ nell'HTML.
 
 A fini esemplificativi, la tecnica _[double-stranded heading hierarchy](http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/)_ può essere implementata con selettori di formattazione:
 
-    .f-size-alpha
-      font-size: 30px
+```sass
+  .f-size-alpha
+    font-size: 30px
 
-    .f-size-beta
-      font-size: 26px
+  .f-size-beta
+    font-size: 26px
 
-    .f-size-gamma
-      font-size: 23px
+  .f-size-gamma
+    font-size: 23px
 
-    ...
-
+  ...
+```
 ## BEM (Block-Element-Modifier)
 
 Il BEM è una [convenzione di naming codificata da Yandex](http://bem.info/) che ha come obiettivo principale quello di garantire una maggiore trasparenza e chiarezza di intenti.
@@ -90,9 +97,11 @@ Ad esclusione delle poche regole specificate nei fogli di stile già descritti, 
 
 La convenzione BEM è la seguente:
 
-    .block
-    .block__element
-    .block--modifier
+```sass
+  .block
+  .block__element
+  .block--modifier
+```
 
 Dove:
 
@@ -114,10 +123,11 @@ A differenza dei *block-modifiers*, gli stati rappresentano cambiamenti di stato
 
 Per facilitarne l'identificazione a livello HTML, i nomi degli stati vengono prefissati con `is-`:
 
-    .is-active
-    .is-collapsed
-    .is-hidden
-
+```sass
+  .is-active
+  .is-collapsed
+  .is-hidden
+```
 E' possibile introdurre stati sia a livello di blocco, che di sotto-elemento di blocco.
 
 ### Layout-blocks
@@ -128,17 +138,21 @@ Per ovviare alla necessità di spaziare tra di loro i differenti blocchi present
 
 Per facilitare l'identificazione di layout blocks all'interno dell'HTML, i nomi vengono prefissati con `l-`:
 
-    .l-grid
-    .l-two-cols
-    .l-spacing
+```sass
+  .l-grid
+  .l-two-cols
+  .l-spacing
+```
 
 ### Ma il BEM esteticamente è brutto!
 
 Ad oggi sfortunatamente il CSS non ci consente molta scelta in termini di caratteri non alfanumerici da poter utilizzare all'interno delle classi come "delimitatori".
 La ragione dei doppi trattini ed underscores sta nella possibilità di poter continuare ad utilizzare lo _spinal-case_ classico per dare un nome a blocchi, elementi e modificatori:
 
-    .site-search
-    .site-search__sub-element
+```sass
+  .site-search
+  .site-search__sub-element
+```
 
 In definitiva sì, la notazione BEM è più verbosa e al primo sguardo può sembrare "strana", ma i vantaggi in termini di chiarezza ed espressività del codice risultante superano di molto possibili critiche sull'aspetto estetico.
 
@@ -152,32 +166,40 @@ Un flusso di lavoro ottimale è separare un sotto-elemento da un blocco, trasfor
 
 Supponiamo di voler realizzare un *layout block* che permetta di rendere floattanti i suoi sotto-blocchi:
 
+```html
     <ul class="l-floating">
       <li class="l-floating__item">...</li>
       <li class="l-floating__item">...</li>
     <ul>
+``
 
 La convenzione BEM ci costringe a dover aggiungere una classe esplicita (`.l-floating__item`) ad ogni sotto-elemento. Confrontiamo questa scelta con un possibile selettore non-BEM:
 
-    .l-floating > li
+```sass
+  .l-floating > li
+```
 
 Sebbene meno verboso a livello di HTML che richiede, il secondo selettore non permette di intuire istantaneamente per ogni `<li>` il blocco che ha la responsabilità di stilizzarlo:
 
-    <section class="another-block">
-      ...
-      <ul class="l-floating">
-        <li>...</li>
-        <li>...</li>
-      <ul>
-      ...
-    </section>
+```html
+  <section class="another-block">
+    ...
+    <ul class="l-floating">
+      <li>...</li>
+      <li>...</li>
+    <ul>
+    ...
+  </section>
+```
 
 Rende inoltre meno riutilizzabile lo stile, non consentendone la sua applicazione ad esempio in caso di cambio di tag dettato da motivi non prettamente estetici (semantica, SEO, accessibilità, etc):
 
-    <div class="l-floating">
-      <div>...</div>
-      <div>...</div>
-    <ul>
+```html
+  <div class="l-floating">
+    <div>...</div>
+    <div>...</div>
+  <ul>
+```
 
 Presupposto del BEM è un *separation of concerns* netto tra estetica e semantica in grado di garantire il massimo riutilizzo di blocchi già presenti, senza richiedere modifiche a codice già presente nel codebase.
 
@@ -189,20 +211,22 @@ E' vietato invece l'utilizzo di *descendant selectors*, in quanto troppo generic
 
 In alternativa allo stile BEM classico di applicazione di *block-modifiers*:
 
-    <div class="block block--modifier">
-    </div>
-
+```html
+  <div class="block block--modifier"></div>
+```
 E' possibile sfruttare la direttiva Sass `@extend`:
 
-    .block--modifier
-      @extend .block
-      ...
+```sass
+  .block--modifier
+    @extend .block
+    ...
+```
 
 Riducendo il *classitis* HTML:
 
-    <div class="block--modifier">
-    </div>
-
+```html
+    <div class="block--modifier">   </div>
+```
 
 ## Best practices CSS
 
